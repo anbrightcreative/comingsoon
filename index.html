@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>beCreative & beDesign tới nèèèèè!!!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            margin: 0; 
+            height: 500vh; 
+            background: #fafafa; 
+            overflow-x: hidden; 
+            font-family: 'Product Sans', sans-serif;
+        }
+
+        .stage { 
+            position: fixed; 
+            top: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        /* --- HEADER LOGO --- */
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .header img {
+            height: 40px; /* Chỉnh độ to nhỏ của logo ở đây */
+            width: auto;
+        }
+
+        /* --- FOOTER LIÊN HỆ --- */
+        .footer {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .footer a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #003366; 
+        }
+
+        .footer .divider {
+            color: #ccc;
+        }
+
+        /* Container text đu đưa */
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+            z-index: -1;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .main-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+            
+            /* Hiệu ứng Gradient Navy - Blue */
+            background: linear-gradient(
+                to right, 
+                #4facfe 0%,   
+                #003366 50%,  
+                #4facfe 100%  
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+
+        .sub-text {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            /* Tạm tắt softGlow để hiệu ứng typing mượt hơn */
+        }
+
+        /* --- CÁC ANIMATION --- */
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -52%); }
+            50% { transform: translate(-50%, -48%); }
+            100% { transform: translate(-50%, -52%); }
+        }
+
+        .char { 
+            position: absolute; 
+            will-change: transform, opacity; 
+            left: -25%; 
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stage">
+        
+        <div class="header">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <div class="content">
+            <div class="text-container">
+                <span class="main-text"> bé Creative, bé Design đang tới nèèèèè!!!</span>
+                <span class="sub-text"></span>
+            </div>
+
+            <img src="design.png" id="design" class="char" style="top: 40%; width: 150px;">
+            <img src="creative.png" id="creative" class="char" style="top: 30%; width: 300px;">
+        </div>
+
+        <div class="footer">
+            <a href="https://www.facebook.com/profile.php?id=61582054885438" target="_blank">Fanpage</a>
+            <span class="divider">•</span>
+            <a href="mailto:hello@anbrightcreative.space">Email Gấp: hello@anbrightcreative.space</a>
+        </div>
+
+    </div>
+
+    <script>
+    const subTextContent = "Đang làm website • coming soon • peakaboo dui dẻ dui dẻ";
+    const subTextElement = document.querySelector('.sub-text');
+
+    window.addEventListener('scroll', () => {
+        let scrollDist = window.scrollY;
+        
+        // 1. Quãng đường chạy animation (3 màn hình)
+        const animationHeight = window.innerHeight * 3; 
+        
+        // 2. Khoảng nghỉ (thêm nửa màn hình nữa để ngắm chữ)
+        const pauseHeight = window.innerHeight * 1; 
+        
+        // Tổng quãng đường trước khi loop về 0
+        const loopHeight = animationHeight + pauseHeight; 
+
+        // Chạm tới tổng quãng đường -> reset
+        if (scrollDist >= loopHeight) {
+            window.scrollTo(0, 0); 
+            scrollDist = 0; 
+        }
+
+        // Bí quyết: "Khóa" fraction ở mức tối đa là 1. 
+        // Khi cuộn vào vùng "khoảng nghỉ", mọi animation sẽ đóng băng ở trạng thái cuối cùng.
+        const fraction = Math.min(scrollDist / animationHeight, 1);
+
+        const design = document.getElementById('design');
+        const creative = document.getElementById('creative');
+
+        const rotateAngle = (Math.floor(scrollDist / 20) % 2 === 0) ? -12 : 12;
+
+        // --- Logic cho Bé Design ---
+        const dMoveX = fraction * 180; 
+        const dScale = 1 + (fraction * 4); 
+        
+        const dBlurTrigger = Math.max(0, fraction - 0.7) * 3.33; 
+        const dBlur = Math.pow(dBlurTrigger, 2) * 25; 
+        const dOpacity = 1 - Math.pow(dBlurTrigger, 3);
+
+        design.style.transform = `translateX(${dMoveX}vw) scale(${dScale}) rotateZ(${rotateAngle}deg)`;
+        design.style.filter = `blur(${dBlur}px)`;
+        design.style.opacity = dOpacity;
+
+        // --- Logic cho Bé Creative ---
+        const fSlow = Math.max(0, fraction - 0.15);
+        const cMoveX = fSlow * 160;
+        const cScale = 0.85 + (fSlow * 3); 
+        
+        const cBlurTrigger = Math.max(0, fraction - 0.75) * 4; 
+        const cBlur = Math.pow(cBlurTrigger, 2) * 20;
+        const cOpacity = 1 - Math.pow(cBlurTrigger, 3);
+
+        const cRotate = (Math.floor((scrollDist + 30) / 20) % 2 === 0) ? -8 : 8;
+
+        creative.style.transform = `translateX(${cMoveX}vw) scale(${cScale}) rotateZ(${cRotate}deg)`;
+        creative.style.filter = `blur(${cBlur}px)`;
+        creative.style.opacity = cOpacity;
+
+        // --- Logic Typing Text theo Scroll ---
+        if (fraction > 0.8) {
+            const typingFraction = (fraction - 0.8) * 5; 
+            const charCount = Math.round(subTextContent.length * typingFraction); 
+            subTextElement.innerHTML = subTextContent.substring(0, charCount);
+        } else {
+            subTextElement.innerHTML = ""; 
+        }
+    });
+    </script>
+</body>
+</html>
