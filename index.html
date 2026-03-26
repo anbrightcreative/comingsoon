@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beCreative & beDesign tới nèèèèè!!!</title>
     <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -33,7 +34,7 @@
         }
 
         .header img {
-            height: 40px; /* Chỉnh độ to nhỏ của logo ở đây */
+            height: 40px;
             width: auto;
         }
 
@@ -48,6 +49,7 @@
             gap: 20px;
             align-items: center;
             font-size: 0.95rem;
+            white-space: nowrap;
         }
 
         .footer a {
@@ -72,24 +74,17 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            width: 100%;
+            width: 90%;
             z-index: -1;
             animation: float 4s ease-in-out infinite;
         }
 
         .main-text {
-            font-size: 3.5rem;
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
             font-weight: 700;
             margin-bottom: 15px;
             display: block;
-            
-            /* Hiệu ứng Gradient Navy - Blue */
-            background: linear-gradient(
-                to right, 
-                #4facfe 0%,   
-                #003366 50%,  
-                #4facfe 100%  
-            );
+            background: linear-gradient(to right, #4facfe 0%, #003366 50%, #4facfe 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -97,12 +92,12 @@
         }
 
         .sub-text {
-            font-size: 1.1rem;
+            font-size: clamp(0.8rem, 3vw, 1.1rem);
             font-weight: 400;
             color: #888;
             text-transform: uppercase;
             letter-spacing: 5px;
-            /* Tạm tắt softGlow để hiệu ứng typing mượt hơn */
+            min-height: 1.2em;
         }
 
         /* --- CÁC ANIMATION --- */
@@ -111,9 +106,8 @@
         }
 
         @keyframes float {
-            0% { transform: translate(-50%, -52%); }
+            0%, 100% { transform: translate(-50%, -52%); }
             50% { transform: translate(-50%, -48%); }
-            100% { transform: translate(-50%, -52%); }
         }
 
         .char { 
@@ -121,20 +115,69 @@
             will-change: transform, opacity; 
             left: -25%; 
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            object-fit: contain; /* Chống crop hình */
+        }
+
+        /* --- NÚT WHATSAPP NỔI --- */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: pulse-wa 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background-color: #128c7e;
+        }
+
+        .whatsapp-btn svg {
+            width: 35px;
+            height: 35px;
+            fill: #fff;
+        }
+
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Tối ưu cho điện thoại */
+        @media (max-width: 768px) {
+            .char { width: 150px !important; }
+            #creative { top: 25% !important; } /* Nhấc cao lên để không mất chân */
+            #design { top: 40% !important; }
+            .header { top: 20px; }
+            .footer { flex-direction: column; gap: 8px; bottom: 20px; font-size: 0.8rem; }
+            .footer .divider { display: none; }
+            .whatsapp-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+            .whatsapp-btn svg { width: 28px; height: 28px; }
         }
     </style>
 </head>
 <body>
 
     <div class="stage">
-        
         <div class="header">
             <img src="logo.png" alt="Logo">
         </div>
 
         <div class="content">
             <div class="text-container">
-                <span class="main-text"> bé Creative, bé Design đang tới nèèèèè!!!</span>
+                <span class="main-text">bé Creative, bé Design đang tới nèèèèè!!!</span>
                 <span class="sub-text"></span>
             </div>
 
@@ -145,10 +188,17 @@
         <div class="footer">
             <a href="https://www.facebook.com/profile.php?id=61582054885438" target="_blank">Fanpage</a>
             <span class="divider">•</span>
-            <a href="mailto:hello@anbrightcreative.space">Email Gấp: hello@anbrightcreative.space</a>
+            <a href="mailto:hello@anbrightcreative.space">hello@anbrightcreative.space</a>
         </div>
-
     </div>
+
+    <a href="https://wa.me/84364678253?text=Xin%20chào%2C%20chúng%20tôi%20có%20thể%20giúp%20gì%20cho%20bạn%3F" 
+       class="whatsapp-btn" 
+       target="_blank">
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.675 1.437 5.662 1.437h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
 
     <script>
     const subTextContent = "Đang làm website • coming soon • peakaboo dui dẻ dui dẻ";
@@ -156,59 +206,45 @@
 
     window.addEventListener('scroll', () => {
         let scrollDist = window.scrollY;
-        
-        // 1. Quãng đường chạy animation (3 màn hình)
         const animationHeight = window.innerHeight * 3; 
-        
-        // 2. Khoảng nghỉ (thêm nửa màn hình nữa để ngắm chữ)
         const pauseHeight = window.innerHeight * 1; 
-        
-        // Tổng quãng đường trước khi loop về 0
         const loopHeight = animationHeight + pauseHeight; 
 
-        // Chạm tới tổng quãng đường -> reset
         if (scrollDist >= loopHeight) {
             window.scrollTo(0, 0); 
             scrollDist = 0; 
         }
 
-        // Bí quyết: "Khóa" fraction ở mức tối đa là 1. 
-        // Khi cuộn vào vùng "khoảng nghỉ", mọi animation sẽ đóng băng ở trạng thái cuối cùng.
         const fraction = Math.min(scrollDist / animationHeight, 1);
-
-        const design = document.getElementById('design');
-        const creative = document.getElementById('creative');
-
         const rotateAngle = (Math.floor(scrollDist / 20) % 2 === 0) ? -12 : 12;
 
-        // --- Logic cho Bé Design ---
+        // Bé Design
         const dMoveX = fraction * 180; 
         const dScale = 1 + (fraction * 4); 
-        
-        const dBlurTrigger = Math.max(0, fraction - 0.7) * 3.33; 
-        const dBlur = Math.pow(dBlurTrigger, 2) * 25; 
-        const dOpacity = 1 - Math.pow(dBlurTrigger, 3);
+        const dBlurT = Math.max(0, fraction - 0.7) * 3.33; 
+        const dBlur = Math.pow(dBlurT, 2) * 25; 
+        const dOpacity = 1 - Math.pow(dBlurT, 3);
 
+        const design = document.getElementById('design');
         design.style.transform = `translateX(${dMoveX}vw) scale(${dScale}) rotateZ(${rotateAngle}deg)`;
         design.style.filter = `blur(${dBlur}px)`;
         design.style.opacity = dOpacity;
 
-        // --- Logic cho Bé Creative ---
+        // Bé Creative
         const fSlow = Math.max(0, fraction - 0.15);
         const cMoveX = fSlow * 160;
         const cScale = 0.85 + (fSlow * 3); 
-        
-        const cBlurTrigger = Math.max(0, fraction - 0.75) * 4; 
-        const cBlur = Math.pow(cBlurTrigger, 2) * 20;
-        const cOpacity = 1 - Math.pow(cBlurTrigger, 3);
+        const cBlurT = Math.max(0, fraction - 0.75) * 4; 
+        const cBlur = Math.pow(cBlurT, 2) * 20;
+        const cOpacity = 1 - Math.pow(cBlurT, 3);
 
+        const creative = document.getElementById('creative');
         const cRotate = (Math.floor((scrollDist + 30) / 20) % 2 === 0) ? -8 : 8;
-
         creative.style.transform = `translateX(${cMoveX}vw) scale(${cScale}) rotateZ(${cRotate}deg)`;
         creative.style.filter = `blur(${cBlur}px)`;
         creative.style.opacity = cOpacity;
 
-        // --- Logic Typing Text theo Scroll ---
+        // Typing Text
         if (fraction > 0.8) {
             const typingFraction = (fraction - 0.8) * 5; 
             const charCount = Math.round(subTextContent.length * typingFraction); 
